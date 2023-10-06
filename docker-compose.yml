@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+    networks:
+      -mynet
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "123"
+      MYSQL_DATABASE: web
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - mynet
+networks:
+   mynet:
+    ipam:
+     driver: default
